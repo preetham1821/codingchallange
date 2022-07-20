@@ -1,0 +1,43 @@
+<div class="container">
+  <div [hidden]="submitted">
+    <h1>Shorten Url</h1>
+    <form (ngSubmit)="onSubmit()" #urlForm="ngForm">
+      <div class="form-group">
+        <label for="name">Enter the url</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          required
+          [(ngModel)]="urlInput"
+          name="name"
+          #name="ngModel"
+        />
+        <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+          url is required
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-success"
+        [disabled]="!urlForm.form.valid"
+      >
+        Submit
+      </button>
+      <h3>History of shortened urls</h3>
+      <div *ngFor="let url of urlList">
+        {{ url }}
+        <button
+          class="btn btn-success"
+          (click)="copyInputMessage(url)"
+          value="click to copy the url"
+        >
+          Copy the url
+        </button>
+        <br />
+        <br />
+      </div>
+    </form>
+  </div>
+</div>
